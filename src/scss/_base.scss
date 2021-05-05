@@ -1,3 +1,17 @@
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 10px;
+}
+
+
 body{
-    background-color: aqua;
+    background-color: $color-pink;
+    font-family: 'Inconsolata', monospace, sans-serif;
 }

@@ -1,14 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <Header/>
+    <Counter/>
   </div>
 </template>
 
 <script>
+import Header from './components/Header';
+import Counter from './components/Counter';
 
 export default {
   name: 'App',
   components: {
+    Header,Counter
   }
 }
 </script>
