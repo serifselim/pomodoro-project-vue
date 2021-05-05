@@ -26,6 +26,19 @@ body {
   max-width: 20rem;
 }
 
+.main-counter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .counter {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -36,6 +49,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin-top: 3rem;
 }
 
 .counter__main {
@@ -62,5 +76,24 @@ body {
 
 .counter__right-arrow {
   margin-left: 2.5rem;
+}
+
+.start {
+  margin-top: 3rem;
+}
+
+.start__btn {
+  font-size: 4.8rem;
+  font-weight: bold;
+  padding: .2rem 4.5rem;
+  color: #DB524D;
+  border: none;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.start__btn:hover {
+  opacity: .9;
 }
 /*# sourceMappingURL=main.css.map */
