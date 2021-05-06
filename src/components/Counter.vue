@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="start">
-      <button  @click="changeColor" class="start-btn">start</button>
+      <button  @click="startPomo" class="start-btn">start</button>
     </div>
   </section>
 </template>
@@ -22,9 +22,14 @@
 <script>
 export default {
   name:'Counter',
+  data(){
+    return{
+      hello : this.$store.state.hello
+    }
+  },
   methods : {
-    changeColor(){
-      document.querySelector('body').style.setProperty('--active-color', '#305e9b');
+    startPomo(){
+      this.$store.dispatch('helloWorld');
     }
   }
 }
