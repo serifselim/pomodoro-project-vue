@@ -1,10 +1,13 @@
+/* //////////////////////
+///// BASE ////////// */
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
@@ -12,9 +15,12 @@ html {
 }
 
 body {
-  background-color: #DB524D;
-  font-family: 'Inconsolata', monospace, sans-serif;
+  background-color: var(--active-color);
+  font-family: "Inconsolata", monospace, sans-serif;
 }
+
+/* //////////////////////
+///// HEADER ////////// */
 
 .header {
   width: 100%;
@@ -26,74 +32,102 @@ body {
   max-width: 20rem;
 }
 
+/* //////////////////////
+///// COUNTER ////////// */
+
 .main-counter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .counter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-top: 3rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
 }
 
-.counter__main {
+.counter .timeout{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.counter .timeout .timeout-btn{
+  border: none;
+  background-color: var(--active-color);
+  color: #ffff;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 30px;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+}
+
+.counter .timeout .timeout-btn:hover {
+  background-color: #ffff;
+  color: var(--active-color);
+  opacity: 0.8;
+}
+
+.counter .timeout .timeout-btn:active,
+.counter .timeout .timeout-btn:focus{
+  background-color: #ffff;
+  color: var(--active-color);
+}
+
+.main{
   background-color: #ffff;
   padding: 2.5rem 4rem;
-  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
 
-.counter__main--count {
+.main .count{
   font-size: 15rem;
   font-weight: bold;
-  color: #DB524D;
+  color: var(--active-color);
 }
 
-.counter .arrow {
-  color: #ffff;
-}
-
-.counter__left-arrow {
-  margin-right: 2.5rem;
-}
-
-.counter__right-arrow {
-  margin-left: 2.5rem;
-}
 
 .start {
-  margin-top: 3rem;
+  margin-top: 2.5rem;
 }
 
-.start__btn {
+.start .start-btn {
   font-size: 4.8rem;
   font-weight: bold;
-  padding: .2rem 4.5rem;
-  color: #DB524D;
+  padding: 0.2rem 4.5rem;
+  color: var(--active-color);
   border: none;
   border-radius: 1rem;
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .start__btn:hover {
-  opacity: .9;
+  opacity: 0.9;
+}
+
+:root{
+  --active-color: #DB524D;
+  --yellow-color: #31b853;
+  --blue-color: #305e9b;
+
+
+  --white-color: #ffffff;
 }
 /*# sourceMappingURL=main.css.map */
