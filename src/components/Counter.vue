@@ -29,7 +29,7 @@ export default {
       pMText: 25,
       pSText: "00",
       pCount : 0,
-      pFinishedCount : 0,
+      pFinishedCount : 1,
       pSettings : [25,5,25,5,25,5,25,15],
       Interval: null,
       isStart : true,
@@ -66,13 +66,26 @@ export default {
       }
     },
     nextStage(pCount){
-      console.log("pCount" + pCount);
-      if (this.pSettings[pCount] === this.pSettings[0]) {
-        this.pFinishedCount++;
+      switch (this.pSettings[pCount]) {
+        case 25:
+          this.pFinishedCount++;
+          this.changeColor('#DB524D');
+          break;
+        case 5:
+          this.changeColor('#31b853');
+          break;
+        default:
+          document.documentElement.style.setProperty('--active-color', '#305e9b');
+          this.changeColor('#305e9b');
+          break;
       }
       this.pM = this.pSettings[pCount];
       this.pM < 10 ? this.pMText = "0" + this.pM : this.pMText = this.pM;
     },
+
+    changeColor(color){
+      document.documentElement.style.setProperty('--active-color', color);
+    }
 
     // zeroAddTime(time,text){
     //   time < 10 ? text = "0" + time : text = time;
