@@ -1,0 +1,22 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  background-color: var(--active-color);
+  font-family: "Inconsolata", monospace, sans-serif;
+}
+
+:root{
+  --active-color: #DB524D;
+  --white-color: #ffffff;
+}

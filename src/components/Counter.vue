@@ -2,9 +2,9 @@
   <section class="main-counter">
     <div class="counter">
       <div class="timeout">
-        <button class="timeout-btn">pomodoro</button>
-        <button class="timeout-btn">short break</button>
-        <button class="timeout-btn">long break</button>
+        <button id="work" class="timeout-btn">pomodoro</button>
+        <button id="short" class="timeout-btn">short break</button>
+        <button id="long" class="timeout-btn">long break</button>
       </div>
       <div class="main">
         <div class="count">
@@ -25,9 +25,11 @@ export default {
   data() {
     return {
       pM: 25,
-      pS: 0,
       pMText: 25,
+
+      pS: 0,
       pSText: "00",
+
       pCount: 0,
       pTarget: 4,
 
@@ -43,7 +45,6 @@ export default {
   },
   created() {
     this.pIntervalArr = this.workingOrder(this.pTarget,this.work,this.short,this.long);
-    console.log(this.pIntervalArr);
   },
   methods: {
     startPomo() {
@@ -59,62 +60,85 @@ export default {
     pomoTimer() {
       if (this.pS <= 0) {
         this.pM--;
-        this.pM < 10 ? (this.pMText = "0" + this.pM) : (this.pMText = this.pM);
+        this.pM < 10 ? this.pMText = "0" + this.pM : this.pMText = this.pM;
 
         this.pS = 59;
         this.pSText = this.pS;
       } else {
         this.pS--;
-        this.pS < 10 ? (this.pSText = "0" + this.pS) : (this.pSText = this.pS);
+        this.pS < 10 ? this.pSText = "0" + this.pS : this.pSText = this.pS;
       }
       if (this.pM <= 0 && this.pS <= 0) {
         this.isStart = true;
-        this.pCount < (this.pTarget * 2 - 1) ? this.pCount++ : (this.pCount = 0);
+        this.pCount < this.pTarget * 2 - 1 ? this.pCount++ : this.pCount = 0;
         this.nextStage(this.pCount);
         this.stopPomo();
       }
     },
+
     nextStage(pCount) {
-      console.log("C :" + pCount);
       switch (this.pIntervalArr[pCount]) {
         case 25:
-          this.pFinishedCount++;
-          console.log("F :" + this.pFinishedCount);
-          this.changeColor("#DB524D");
+          this.changeStatus("#DB524D","work");
           break;
         case 5:
-          this.changeColor("#31b853");
+          this.changeStatus("#31b853","short");
+          this.pFinishedCount++;
           break;
         default:
-          this.changeColor("#305e9b");
+          this.changeStatus("#305e9b","long");
           break;
       }
+
       this.pM = this.pIntervalArr[pCount];
-      this.pM < 10 ? (this.pMText = "0" + this.pM) : (this.pMText = this.pM);
+      this.pM < 10 ? this.pMText = "0" + this.pM : this.pMText = this.pM;
     },
 
     workingOrder(pTarget,work,short,long){
       let arr = [];
-      
+
       for (let i = 0; i < pTarget + 1; i++) {
-      if (i < pTarget) {
-        arr.push(work);
-        arr.push(short);
-      }else {
-        arr.splice(-1,1);
-        arr.push(long);
+        if(i < pTarget){
+          arr.push(work);
+          arr.push(short);
+        }
+        else{
+          arr.splice(-1,1);
+          arr.push(long);
         }
       }
         return arr;
     },
 
-    changeColor(color) {
+    changeStatus(color,id) {
+      const work = document.getElementById("work");
+      const short = document.getElementById("short");
+      const long = document.getElementById("long");
       document.documentElement.style.setProperty("--active-color", color);
+      switch (id) {
+        case "work":
+          this.changeStyle(work,short,long);
+          break;
+        case "short":
+          this.changeStyle(short,work,long);
+          break;
+        default:
+          this.changeStyle(long,work,short);
+          break;
+      }
+
+      
     },
 
-    // zeroAddTime(time,text){
-    //   time < 10 ? text = "0" + time : text = time;
-    // }
+    changeStyle(targetBtn,nullBtn1,nullBtn2){
+      targetBtn.style.background = "#fff";
+      targetBtn.style.color = "var(--active-color)";
+      nullBtn1.style = null;
+      nullBtn2.style = null;
+    }
+
+
+    
   },
 };
 </script>
