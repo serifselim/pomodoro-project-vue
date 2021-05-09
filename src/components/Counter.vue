@@ -14,10 +14,10 @@
       </div>
       <div class="main">
         <div class="count">
-          <span v-if="false">{{ pMText }}:{{ pSText }}</span>
+          <span v-if="!isOption">{{ pMText }}:{{ pSText }}</span>
 
           <div v-else class="options">
-            <a href="#" class="close-btn"
+            <a @click="openOptions" class="close-btn"
               ><i class="fas fa-times-circle"></i
             ></a>
             <div class="options-div">
@@ -25,36 +25,36 @@
               <div class="set-div">
                 <div class="set-item set-work">
                   <label class="set-header">pomodoro</label>
-                  <input type="number" class="set-input" v-model="work" />
+                  <input type="number" class="set-input" />
                 </div>
                 <div class="set-item set-work">
                   <label class="set-header">short break</label>
-                  <input type="number" class="set-input" v-model="short" />
+                  <input type="number" class="set-input"  />
                 </div>
                 <div class="set-item set-work">
                   <label class="set-header">long break</label>
-                  <input type="number" class="set-input" v-model="long" />
+                  <input type="number" class="set-input" />
                 </div>
               </div>
             </div>
             <hr class="line">
             <div class="set-item set-work">
                   <label class="set-header">long break interval</label>
-                  <input type="number" class="set-input" v-model="pTarget" />
+                  <input type="number" class="set-input"/>
             </div>
-            <button class="done-btn">done</button>
+            <button @click="openOptions" class="done-btn">done</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="start">
+    <div v-if="!isOption" class="start">
       <button v-if="isStart" @click.prevent="startPomo" class="pomo-btn">
         start
       </button>
       <button v-else @click.prevent="stopPomo" class="pomo-btn">stop</button>
     </div>
-    <div class="options-button">
-      <a href="#"><i class="fas fa-cog fa-5x"></i></a>
+    <div v-if="!isOption && isStart" class="options-button">
+      <a @click="openOptions"><i class="fas fa-cog fa-5x"></i></a>
     </div>
   </section>
 </template>
@@ -81,6 +81,7 @@ export default {
       pIntervalArr: [],
       Interval: null,
       isStart: true,
+      isOption : false
     };
   },
   created() {
@@ -178,6 +179,11 @@ export default {
       nullBtn1.style = null;
       nullBtn2.style = null;
     },
+
+    openOptions(){
+      this.isOption = !this.isOption;
+    },
+    
   },
 };
 </script>
