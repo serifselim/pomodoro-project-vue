@@ -12,8 +12,10 @@ html {
 }
 
 body {
+  position: relative;
   background-color: var(--active-color);
   font-family: "Inconsolata", monospace, sans-serif;
+  transition: background-color 1s;
 }
 
 :root{

@@ -2,19 +2,59 @@
   <section class="main-counter">
     <div class="counter">
       <div class="timeout">
-        <button id="work" class="timeout-btn">pomodoro</button>
+        <button
+          id="work"
+          style="background-color:#fff; color:var(--active-color);"
+          class="timeout-btn"
+        >
+          pomodoro
+        </button>
         <button id="short" class="timeout-btn">short break</button>
         <button id="long" class="timeout-btn">long break</button>
       </div>
       <div class="main">
         <div class="count">
-          <span>{{ pMText }}:{{ pSText }}</span>
+          <span v-if="false">{{ pMText }}:{{ pSText }}</span>
+
+          <div v-else class="options">
+            <a href="#" class="close-btn"
+              ><i class="fas fa-times-circle"></i
+            ></a>
+            <div class="options-div">
+              <h2 class="options-header">time (minutes)</h2>
+              <div class="set-div">
+                <div class="set-item set-work">
+                  <label class="set-header">pomodoro</label>
+                  <input type="number" class="set-input" v-model="work" />
+                </div>
+                <div class="set-item set-work">
+                  <label class="set-header">short break</label>
+                  <input type="number" class="set-input" v-model="short" />
+                </div>
+                <div class="set-item set-work">
+                  <label class="set-header">long break</label>
+                  <input type="number" class="set-input" v-model="long" />
+                </div>
+              </div>
+            </div>
+            <hr class="line">
+            <div class="set-item set-work">
+                  <label class="set-header">long break interval</label>
+                  <input type="number" class="set-input" v-model="pTarget" />
+            </div>
+            <button class="done-btn">done</button>
+          </div>
         </div>
       </div>
     </div>
     <div class="start">
-      <button v-if="isStart" @click="startPomo" class="pomo-btn">start</button>
-      <button v-else @click="stopPomo" class="pomo-btn">stop</button>
+      <button v-if="isStart" @click.prevent="startPomo" class="pomo-btn">
+        start
+      </button>
+      <button v-else @click.prevent="stopPomo" class="pomo-btn">stop</button>
+    </div>
+    <div class="options-button">
+      <a href="#"><i class="fas fa-cog fa-5x"></i></a>
     </div>
   </section>
 </template>
@@ -44,7 +84,12 @@ export default {
     };
   },
   created() {
-    this.pIntervalArr = this.workingOrder(this.pTarget,this.work,this.short,this.long);
+    this.pIntervalArr = this.workingOrder(
+      this.pTarget,
+      this.work,
+      this.short,
+      this.long
+    );
   },
   methods: {
     startPomo() {
@@ -60,17 +105,17 @@ export default {
     pomoTimer() {
       if (this.pS <= 0) {
         this.pM--;
-        this.pM < 10 ? this.pMText = "0" + this.pM : this.pMText = this.pM;
+        this.pM < 10 ? (this.pMText = "0" + this.pM) : (this.pMText = this.pM);
 
         this.pS = 59;
         this.pSText = this.pS;
       } else {
         this.pS--;
-        this.pS < 10 ? this.pSText = "0" + this.pS : this.pSText = this.pS;
+        this.pS < 10 ? (this.pSText = "0" + this.pS) : (this.pSText = this.pS);
       }
       if (this.pM <= 0 && this.pS <= 0) {
         this.isStart = true;
-        this.pCount < this.pTarget * 2 - 1 ? this.pCount++ : this.pCount = 0;
+        this.pCount < this.pTarget * 2 - 1 ? this.pCount++ : (this.pCount = 0);
         this.nextStage(this.pCount);
         this.stopPomo();
       }
@@ -79,66 +124,60 @@ export default {
     nextStage(pCount) {
       switch (this.pIntervalArr[pCount]) {
         case 25:
-          this.changeStatus("#DB524D","work");
+          this.changeStatus("#DB524D", "work");
           break;
         case 5:
-          this.changeStatus("#31b853","short");
+          this.changeStatus("#31b853", "short");
           this.pFinishedCount++;
           break;
         default:
-          this.changeStatus("#305e9b","long");
+          this.changeStatus("#305e9b", "long");
           break;
       }
 
       this.pM = this.pIntervalArr[pCount];
-      this.pM < 10 ? this.pMText = "0" + this.pM : this.pMText = this.pM;
+      this.pM < 10 ? (this.pMText = "0" + this.pM) : (this.pMText = this.pM);
     },
 
-    workingOrder(pTarget,work,short,long){
+    workingOrder(pTarget, work, short, long) {
       let arr = [];
 
       for (let i = 0; i < pTarget + 1; i++) {
-        if(i < pTarget){
+        if (i < pTarget) {
           arr.push(work);
           arr.push(short);
-        }
-        else{
-          arr.splice(-1,1);
+        } else {
+          arr.splice(-1, 1);
           arr.push(long);
         }
       }
-        return arr;
+      return arr;
     },
 
-    changeStatus(color,id) {
+    changeStatus(color, id) {
       const work = document.getElementById("work");
       const short = document.getElementById("short");
       const long = document.getElementById("long");
       document.documentElement.style.setProperty("--active-color", color);
       switch (id) {
         case "work":
-          this.changeStyle(work,short,long);
+          this.changeStyle(work, short, long);
           break;
         case "short":
-          this.changeStyle(short,work,long);
+          this.changeStyle(short, work, long);
           break;
         default:
-          this.changeStyle(long,work,short);
+          this.changeStyle(long, work, short);
           break;
       }
-
-      
     },
 
-    changeStyle(targetBtn,nullBtn1,nullBtn2){
+    changeStyle(targetBtn, nullBtn1, nullBtn2) {
       targetBtn.style.background = "#fff";
       targetBtn.style.color = "var(--active-color)";
       nullBtn1.style = null;
       nullBtn2.style = null;
-    }
-
-
-    
+    },
   },
 };
 </script>
