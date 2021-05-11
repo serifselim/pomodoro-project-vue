@@ -2,7 +2,7 @@
     max-width: 45rem;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 0 auto 50rem auto;
 }
 
 /* 
@@ -52,8 +52,10 @@
     font-family: "Inconsolata", monospace, sans-serif;
     padding: 1.5rem 2rem;
     font-size: 2rem;
+    transition: transform .3s;
 }
 .task-main .task-add .add-task-input:focus{
+    transform: scale(1.1);
     outline: none;
 }
 .task-main .task-add .add-task-input::placeholder{
@@ -82,6 +84,8 @@
 .task-list{
     list-style: none;
     text-decoration: none;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .task-item{
