@@ -15,7 +15,7 @@ export const counter = {
             
             audioPlay('touch');
             state.isStart = false;
-            state.Interval = setInterval(() => dispatch('pomoTimer'), 3);
+            state.Interval = setInterval(() => dispatch('pomoTimer'), 1000);
         },
         stopPomo({ state }) {
             state.isStart = true;
@@ -85,6 +85,6 @@ function changeStyle(targetBtn, nullBtn1, nullBtn2){
 }
 
 function audioPlay(file){
-    let audio = new Audio(require('../../../assets/'+file+'.mp3'));
+    let audio = new Audio(require(`../../../assets/${file}.mp3`));
     audio.play();
 }

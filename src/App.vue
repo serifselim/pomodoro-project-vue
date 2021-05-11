@@ -1,19 +1,21 @@
 <template>
   <div id="app">
     <Header/>
-    <Counter/>
+    <Todo/>
+    <!-- <Counter/> -->
   </div>
 </template>
 
 <script>
 import Header from './components/Header';
-import Counter from './components/Counter';
+// import Counter from './components/Counter';
+import Todo from './components/Todo';
 
 
 export default {
   name: 'App',
   components: {
-    Header,Counter
+    Header,Todo
   }
 }
 </script>
