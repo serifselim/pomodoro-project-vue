@@ -12,8 +12,10 @@ export const counter = {
     },
     actions: {
         startPomo({ state, dispatch }) {
+            
+            audioPlay('touch');
             state.isStart = false;
-            state.Interval = setInterval(() => dispatch('pomoTimer'), 1000);
+            state.Interval = setInterval(() => dispatch('pomoTimer'), 3);
         },
         stopPomo({ state }) {
             state.isStart = true;
@@ -32,6 +34,7 @@ export const counter = {
             if (state.pM <= 0 && state.pS <= 0) {
                 state.isStart = true;
                 state.pCount < 7 ? state.pCount++ : (state.pCount = 0);
+                audioPlay('ring');
                 nextStage(state);
                 dispatch('stopPomo');
             }
@@ -79,4 +82,9 @@ function changeStyle(targetBtn, nullBtn1, nullBtn2){
     targetBtn.style.color = "var(--active-color)";
     nullBtn1.style = null;
     nullBtn2.style = null;
+}
+
+function audioPlay(file){
+    let audio = new Audio(require('../../../assets/'+file+'.mp3'));
+    audio.play();
 }
