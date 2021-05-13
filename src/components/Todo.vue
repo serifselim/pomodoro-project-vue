@@ -2,7 +2,7 @@
   <div class="task">
     <div class="task-header">
       <h2 class="header t-left">tasks</h2>
-      <h2 class="header t-right">{{ checkCount }}/{{ todoCount }}</h2>
+      <!-- <h2 class="header t-right">{{ checkCount }}/{{ todoList.length }}</h2> -->
     </div>
     <div class="task-main">
       <div class="task-add">
