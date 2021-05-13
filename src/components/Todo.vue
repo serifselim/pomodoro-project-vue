@@ -35,24 +35,21 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
 export default {
   name: "todo",
   data() {
     return {
       task: null,
       checkCount: 0,
+      todoList:[]
     };
   },
-  computed: {
-    ...mapGetters({
-      todoList : 'refreshTodo',
-      todoCount : 'refreshCountTodo'
-    })
-  },
+  
   created() {
     const getData = localStorage.getItem("tasks");
     this.$store.dispatch("getTodo", JSON.parse(getData));
+    this.todoList = this.$store.getters.refreshTodo;
+
   },
   methods: {
     addTodo() {
