@@ -2,6 +2,14 @@ export const todo = {
     state:{
         todoList : []
     },
+    getters:{
+        refreshTodo:(state)=>{
+            return state.todoList
+        },
+        refreshCountTodo:(state)=>{
+            return state.todoList.length
+        }
+    },
     actions:{
         getTodo({state},getData){
             state.todoList = getData;
