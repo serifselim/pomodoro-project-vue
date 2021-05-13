@@ -35,21 +35,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 export default {
   name: "todo",
   data() {
     return {
       task: null,
       checkCount: 0,
+      todoList : []
     };
   },
-  computed: mapState({
-    todoList: (state) => state.todo.todoList,
-  }),
+  // computed: mapState({
+  //   todoList: (state) => state.todo.todoList,
+  // }),
   created() {
     const getData = localStorage.getItem("tasks");
     this.$store.dispatch("getTodo", JSON.parse(getData));
+    this.todoList = this.$store.state.todo.todoList;
+    console.log(this.todoList);
   },
   methods: {
     addTodo() {
