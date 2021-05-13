@@ -2,7 +2,7 @@
   <div class="task">
     <div class="task-header">
       <h2 class="header t-left">tasks</h2>
-      <!-- <h2 class="header t-right">{{ checkCount }}/{{ todoList.length }}</h2> -->
+      <h2 class="header t-right">{{ checkCount }}/{{ todoList.length }}</h2>
     </div>
     <div class="task-main">
       <div class="task-add">
@@ -35,25 +35,27 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: "todo",
   data() {
     return {
       task: null,
       checkCount: 0,
-      todoList:[]
     };
   },
-  
   created() {
     const getData = localStorage.getItem("tasks");
     this.$store.dispatch("getTodo", JSON.parse(getData));
-    this.todoList = this.$store.getters.refreshTodo;
 
   },
+  computed : mapState({
+    todoList: state => state.todo.todoList
+  }),
   methods: {
     addTodo() {
       this.task !== null ? this.$store.dispatch("addTodo", this.task.toLowerCase()) : alert("Please enter a text");
+      console.log(this.todoList.length);
       this.task = null;
     },
     deleteTodo(index, e) {
