@@ -17,11 +17,11 @@
         </a>
       </div>
       <ul class="task-list">
-        <li class="task-item" v-for="(todo, index) in todoList" :key="index">
-          <a @click="checkTodo" class="check-task-btn btn-gray">
+        <li :class="{'task-item' : todo , check:todo.check}" v-for="(todo, index) in todoList" :key="index">
+          <a @click="checkTodo(index, $event)" class="check-task-btn btn-gray">
             <i class="fas fa-check-circle"></i>
           </a>
-          <span class="task-text">{{ todo }}</span>
+          <span class="task-text">{{ todo.task }}</span>
           <a
             @click="deleteTodo(index, $event)"
             class="delete-task-btn btn-active"
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
   name: "todo",
   data() {
@@ -46,18 +46,34 @@ export default {
   },
   created() {
     const getData = localStorage.getItem("tasks");
-    this.$store.dispatch("getTodo", JSON.parse(getData));
+    const getTask = JSON.parse(getData);
 
+    getTask.map(task =>{
+      if(task.check){
+        this.checkCount++;
+      }else if(!task.check && this.checkTodo > 0){
+        this.checkCount--;
+      } 
+    })
+
+    this.$store.dispatch("getTodo", JSON.parse(getData));
   },
-  computed : mapState({
-    todoList: state => state.todo.todoList
+  computed: mapState({
+    todoList: (state) => state.todo.todoList,
   }),
   methods: {
     addTodo() {
-      this.task !== null ? this.$store.dispatch("addTodo", this.task.toLowerCase()) : alert("Please enter a text");
-      console.log(this.todoList.length);
+      let taskItem = {
+        task: this.task,
+        check: false,
+      };
+
+      this.task !== null
+        ? this.$store.dispatch("addTodo", taskItem)
+        : alert("Please enter a text");
       this.task = null;
     },
+
     deleteTodo(index, e) {
       let todoItem = e.target.parentElement.parentElement;
       this.$store.dispatch("deleteTodo", index);
@@ -67,17 +83,11 @@ export default {
       }
     },
 
-    checkTodo(e) {
-      let todoItem = e.target.parentElement.parentElement;
-
-      if (todoItem.className !== "task-item check") {
-        todoItem.classList.add("check");
-        this.checkCount++;
-      } else {
-        todoItem.classList.remove("check");
-        this.checkCount--;
-      }
-    },
+    checkTodo(index) {
+        this.todoList[index].check = !this.todoList[index].check;
+        this.todoList[index].check ? this.checkCount++ : this.checkCount--;
+        localStorage.setItem('tasks',JSON.stringify(this.todoList));
+    }
   },
 };
 </script>
