@@ -11,16 +11,19 @@ export const counter = {
         isStart: true,
     },
     actions: {
+        // Time Start Function
         startPomo({ state, dispatch }) {
             
             audioPlay('touch');
             state.isStart = false;
-            state.Interval = setInterval(() => dispatch('pomoTimer'), 1000);
+            state.Interval = setInterval(() => dispatch('pomoTimer'), 300);
         },
+        // Time Stop Function
         stopPomo({ state }) {
             state.isStart = true;
             clearInterval(state.Interval);
         },
+        // Time CountDown Function
         pomoTimer({ state, dispatch }) {
             if (state.pS <= 0) {
                 state.pM--;
@@ -39,9 +42,17 @@ export const counter = {
                 dispatch('stopPomo');
             }
         },
+        // Time Skip Function
+        skipPomo({state}){
+            state.pCount < 7 ? state.pCount++ : (state.pCount = 0);
+            state.pS = 0;
+            state.pSText = "00",
+            nextStage(state);
+        }
     },
 }
 
+// Next Pomo Function
 function nextStage(state){
     switch (state.pIntervalArr[state.pCount]) {
         case 25:
@@ -59,6 +70,8 @@ function nextStage(state){
     state.pM < 10 ? (state.pMText = "0" + state.pM) : (state.pMText = state.pM);
 }
 
+
+// Change Color Funciton
 function changeStatus(color, id){
     const work = document.getElementById("work");
     const short = document.getElementById("short");
@@ -76,7 +89,7 @@ function changeStatus(color, id){
             break;
     }
 }
-
+// Change Color Style Css Funciton
 function changeStyle(targetBtn, nullBtn1, nullBtn2){
     targetBtn.style.background = "#fff";
     targetBtn.style.color = "var(--active-color)";
@@ -84,6 +97,7 @@ function changeStyle(targetBtn, nullBtn1, nullBtn2){
     nullBtn2.style = null;
 }
 
+// Add Audio Function
 function audioPlay(file){
     let audio = new Audio(require(`../../../assets/${file}.mp3`));
     audio.play();

@@ -1,10 +1,17 @@
 <template>
+  <!-- Task Main Side -->
   <div class="task">
+
+    <!-- Task Header Side -->
     <div class="task-header">
       <h2 class="header t-left">tasks</h2>
       <h2 class="header t-right">{{ checkCount }}/{{ todoList.length }}</h2>
     </div>
+    <!-- Task Header Side -->
+
     <div class="task-main">
+
+      <!-- Task Add Side -->
       <div class="task-add">
         <input
           v-model="task"
@@ -16,8 +23,15 @@
           <i class="fas fa-plus-circle fa-3x btn-white"></i>
         </a>
       </div>
+      <!-- Task Add Side -->
+
+      <!-- Task List Side -->
       <ul class="task-list">
-        <li :class="{'task-item' : todo , check:todo.check}" v-for="(todo, index) in todoList" :key="index">
+        <li
+          :class="{ 'task-item': todo, check: todo.check }"
+          v-for="(todo, index) in todoList"
+          :key="index"
+        >
           <a @click="checkTodo(index, $event)" class="check-task-btn btn-gray">
             <i class="fas fa-check-circle"></i>
           </a>
@@ -30,8 +44,12 @@
           </a>
         </li>
       </ul>
+      <!-- Task List Side -->
+
     </div>
+    
   </div>
+  <!-- Task Main Side -->
 </template>
 
 <script>
@@ -48,13 +66,13 @@ export default {
     const getData = localStorage.getItem("tasks");
     const getTask = JSON.parse(getData);
 
-    getTask.map(task =>{
-      if(task.check){
+    getTask.map((task) => {
+      if (task.check) {
         this.checkCount++;
-      }else if(!task.check && this.checkTodo > 0){
+      } else if (!task.check && this.checkTodo > 0) {
         this.checkCount--;
-      } 
-    })
+      }
+    });
 
     this.$store.dispatch("getTodo", JSON.parse(getData));
   },
@@ -84,10 +102,10 @@ export default {
     },
 
     checkTodo(index) {
-        this.todoList[index].check = !this.todoList[index].check;
-        this.todoList[index].check ? this.checkCount++ : this.checkCount--;
-        localStorage.setItem('tasks',JSON.stringify(this.todoList));
-    }
+      this.todoList[index].check = !this.todoList[index].check;
+      this.todoList[index].check ? this.checkCount++ : this.checkCount--;
+      localStorage.setItem("tasks", JSON.stringify(this.todoList));
+    },
   },
 };
 </script>

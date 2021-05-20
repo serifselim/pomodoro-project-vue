@@ -18,4 +18,8 @@
     opacity: 0.9;
     transform: translateY(-5px);
   }
-  
+
+.skip{
+  margin-top: 2.5rem;
+  color: white;
+}
