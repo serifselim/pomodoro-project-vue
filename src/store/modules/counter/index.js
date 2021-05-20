@@ -16,7 +16,7 @@ export const counter = {
             
             audioPlay('touch');
             state.isStart = false;
-            state.Interval = setInterval(() => dispatch('pomoTimer'), 300);
+            state.Interval = setInterval(() => dispatch('pomoTimer'), 1000);
         },
         // Time Stop Function
         stopPomo({ state }) {
